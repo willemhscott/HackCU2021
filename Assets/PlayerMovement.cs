@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public float speed = 12f;
     
-    private Vector3 _velocity;
+    public Vector3 velocity;
     public Vector3 gravity = new Vector3(0, -9.81f, 0);
     void Update()
     {
@@ -16,17 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * (speed * Time.deltaTime));
-
-        _velocity += gravity * Time.deltaTime;
-        controller.Move(_velocity * Time.deltaTime);
-    }
-    
-    //Detect collisions between the GameObjects with Colliders attached
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "MyGameObjectTag")
-        {
-            _velocity.y = 0;
-        }
+        
+        velocity += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
